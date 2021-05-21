@@ -30,7 +30,7 @@ def wrangle_data(cached=False):
        
         # list of columns unusable
         dropcols = ['name', 'img_url', 'ori_agency_identifier', 'news_article_or_photo_of_official_document', 'off_duty_killing', 'wapo_id', \
-        'mpv_id', 'fatal_encounters_id', 'names_of_officers_involved_draft', 'address']
+        'mpv_id', 'fatal_encounters_id', 'names_of_officers_involved_draft', 'address', 'race_of_officers_involved_draft', 'call_for_service_draft']
         # dropcols dropped
         df.drop(columns=dropcols, inplace=True)
 
