@@ -1,0 +1,4 @@
+Run at Deep note startup:
+
+    - pip install xlrd
+    - pip install openpyxl
