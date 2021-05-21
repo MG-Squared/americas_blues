@@ -36,7 +36,7 @@ Identify top drivers of civilian fatalities in police altercations in the United
 
 > Hypothesis₁
 >
-> There is relationship between bodycam usage and fatality.
+> There is relationship between bodycam usage and threat.
     
 > Hypothesis₂
 >
