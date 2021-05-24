@@ -1,10 +1,47 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+
+# Visualizations
 import seaborn as sns
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+# Hypothesis tests
 from scipy import stats
-import datetime as dt
+from scipy.stats import chi2_contingency
+from scipy.stats import ttest_1samp
+from scipy.stats import ttest_ind
+
+#Feature Engineering
+from sklearn.feature_selection import SelectKBest, f_regression, chi2
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+from scipy import stats
+
+# Split data
+from sklearn.model_selection import train_test_split
+
+# Evaluate models
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import precision_recall_fscore_support 
+
+# Create models for classification ML:
+# Decision Tree  
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_graphviz
+
+# Random Forest
+from sklearn.ensemble import RandomForestClassifier
+
+# K-Nearest Neighbor(KNN)  
+from sklearn.neighbors import KNeighborsClassifier
+
+# Logistic Regression
+from sklearn.linear_model import LogisticRegression
 
 
 
@@ -609,7 +646,7 @@ def t_test(population_1, population_2, alpha=0.05, sample=1, tail=2, tail_dir='h
 
 
 
-def chi2(df, var, target, alpha=0.05):
+def chi2_matts(df, var, target, alpha=0.05):
     '''
     Description:
     -----------
@@ -650,11 +687,69 @@ def chi2(df, var, target, alpha=0.05):
 
 
 
+#################################################################################
+
+# Feature Selection
+
+#################################################################################
 
 
 
 
 
+def select_kbest(X, y, n):
+    '''
+    Description:
+    -----------
+    SelectKbest selects features according to the k highest scores.
+
+    Parameters:
+    ----------
+    x: df
+        Uses the X_train dataframe
+    y: series
+        The series of the target variable, (y_train) 
+    k = int
+        The number of features to return for modeling
+    '''
+    # parameters: f_regression stats test
+    f_selector = SelectKBest(chi2, k=n)
+    # find the top 2 X-feats correlated with y
+    f_selector.fit(X, y)
+    # boolean mask of whether the column was selected or not. 
+    feature_mask = f_selector.get_support()
+    # get list of top K features. 
+    f_feature = X.iloc[:,feature_mask].columns.tolist()
+    return f_feature
+
+    
+def rfe(X, y, n):
+    '''
+    Description:
+    -----------
+    Feature ranking with recursive feature elimination..
+
+    Parameters:
+    ----------
+    x: df
+        Uses the X_train dataframe
+    y: series
+        The series of the target variable, (y_train) 
+    k = int
+        The number of features to return for modeling
+    '''
+    # initialize the ML algorithm
+    lm = LogisticRegression()
+    # create the rfe object, indicating the ML object (lm) and the number of features I want to end up with. 
+    rfe = RFE(lm, n)
+    # fit the data using RFE
+    rfe.fit(X,y)  
+    # get the mask of the columns selected
+    feature_mask = rfe.support_
+    # get list of the column names. 
+    rfe_feature = X.iloc[:,feature_mask].columns.tolist()
+    return rfe_feature
+ 
 
 
 
