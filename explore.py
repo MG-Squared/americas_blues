@@ -186,9 +186,10 @@ def explore_univariate_categorical(train, cat_var):
 
     '''
     frequency_table = freq_table(train, cat_var)
-    plt.figure(figsize=(2,2))
+    plt.figure(figsize=(16,6))
     sns.barplot(x=cat_var, y='Count', data=frequency_table, color='lightseagreen')
     plt.title(cat_var)
+    plt.xticks(rotation = 90)
     plt.show()
     print(frequency_table)
 
