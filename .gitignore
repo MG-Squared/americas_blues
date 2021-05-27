@@ -1,10 +1,6 @@
-ALG_explore.ipynb
-data.xlsx
-explore-alicia.ipynb
-explore-BAM.ipynb
-explore-MD.ipynb
-initial_explore.ipynb
-Notes.txt
+*.xlsx
+*.csv
+drafts
 
 .bash_profile
 
