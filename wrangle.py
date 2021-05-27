@@ -247,12 +247,66 @@ def wrangle_new_data(cached=False):
 
 
         dropcols=['url_of_image_pls_no_hotlinks', 'uid_temporary', 'name_temporary', 'description_temp', 'url_temp', \
-        'supporting_document_link', 'dispositions_exclusions_internal_use,_not_for_analysis', 'foreknowledge_of_mental_illness?_internal_use,_not_for_analysis']
+        'supporting_document_link', 'dispositions_exclusions_internal_use,_not_for_analysis', 'foreknowledge_of_mental_illness?_internal_use,_not_for_analysis', \
+        'race_with_imputations', 'name', 'imputation_probability', 'location_of_injury_address', 'location_of_death_city', 'state', 'location_of_death_county', \
+        'full_address', 'latitude', 'longitude']
+        
         df.drop(columns=dropcols, inplace=True)
         
 
         df.dropna(inplace=True)
 
+
+        df.age = df.age.astype('float64')
+
+
+        df.loc[28961,'latitude'] = '42.167834'
+        df.latitude = df.latitude.astype('float64')
+
+        
+
+        columns = list(df.columns)
+        obj_cols = []
+
+        for col in columns:
+            if df[col].dtype == 'object':
+                obj_cols.append(col)
+
+        for col in obj_cols:
+            df[col] = df[col].str.lower().str.strip()
+            
+        
+        df = df[(df.armed_unarmed == 'armed') | (df.armed_unarmed == 'unarmed') | (df.armed_unarmed == 'uncertain') | (df.armed_unarmed == 'none')]
+        df.armed_unarmed = df.armed_unarmed.str.replace('uncertain', 'none').str.replace('none', 'unarmed')
+
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('firearm'), "firearm", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('blunt object'), "blunt object", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('edged weapon'), "edged weapon", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('other'), "other_weapon", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('rifle'), "firearm", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('taser'), "other_weapon", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('vehicle'), "other_weapon", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('uncertain'), "none", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('stun gun'), "other_weapon", df.alleged_weapon)
+        df.alleged_weapon = np.where(df.alleged_weapon.str.contains('none'), "no_weapon", df.alleged_weapon)
+
+
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('vehicular assault'), "ambiguous_threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('none'), "no_threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('weapon'), "threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('self-inflicted'), "no_threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('advanced toward'), "threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('struggled'), "threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('advanced upon'), "threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('uncertain'), "ambiguous_threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('reached to waist'), "ambiguous_threat", df.aggressive_physical_movement)
+        df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('sudden threatening movement'), "ambiguous_threat", df.aggressive_physical_movement)
+
+        
+
+
+
+        
 
         df.to_csv('prepped_new_data.csv')
 
