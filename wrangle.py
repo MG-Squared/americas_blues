@@ -253,18 +253,14 @@ def wrangle_new_data(cached=False):
         
         df.drop(columns=dropcols, inplace=True)
         
+        
 
         df.dropna(inplace=True)
 
 
         df.age = df.age.astype('float64')
-
-
-        df.loc[28961,'latitude'] = '42.167834'
-        df.latitude = df.latitude.astype('float64')
-
         
-
+        
         columns = list(df.columns)
         obj_cols = []
 
@@ -302,10 +298,41 @@ def wrangle_new_data(cached=False):
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('reached to waist'), "ambiguous_threat", df.aggressive_physical_movement)
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('sudden threatening movement'), "ambiguous_threat", df.aggressive_physical_movement)
 
+        gender_dummies = pd.get_dummies(df.gender, prefix='is')
+        gender_dummies.drop(columns='is_male', inplace=True)
+
+        df.race = df.race.str.replace("african-american/black", "black").replace("european-american/white", "white").replace("hispanic/latino", "hispanic").replace("native american/alaskan", "native_american").replace("race unspecified", "unknown_race")
+        race_dummies = pd.get_dummies(df.race, prefix='is')
+        race_dummies.columns = race_dummies.columns.str.replace('/', '_')
+
+        unarmed_dummies = pd.get_dummies(df.armed_unarmed, drop_first=True, prefix='is')
+
+        weapon_dummies = pd.get_dummies(df.alleged_weapon, prefix='had', drop_first=False)
+
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("fleeing/"), "fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("vehicle"), "fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("foot"), "fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("motorcycle"), "fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("not fleeing"), "not_fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("none"), "not_fleeing", df.fleeing_not_fleeing)
+        df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("uncertain/police alleged vehicular assault"), "fleeing", df.fleeing_not_fleeing)
+        df = df[(df.fleeing_not_fleeing == 'not_fleeing') | (df.fleeing_not_fleeing == 'fleeing')]
+        df['fleeing'] = np.where(df.fleeing_not_fleeing == 'fleeing', 1, 0)
+
+        # binning age
+        cut_labels_a = ['under 12','12-17', '18-24', '25-34', '35-44', '45-54', '55-64', '65+']
+        cut_bins = [0, 11, 17, 24, 34, 44, 54, 64, 130]
+        df['age_bins'] = pd.cut(df['age'], bins=cut_bins, labels=cut_labels_a)
         
+        # make dummy columns for age range
+        age_dummies = pd.get_dummies(df.age_bins, drop_first=False)
+        
+        # concat age_dummies
+        df = pd.concat([df, race_dummies, unarmed_dummies, weapon_dummies, age_dummies], axis=1)
 
+        df.dropna(inplace=True)
 
-
+        df.rename(columns={'aggressive_physical_movement' : 'alleged_threat_lvl'}, inplace=True)
         
 
         df.to_csv('prepped_new_data.csv')
