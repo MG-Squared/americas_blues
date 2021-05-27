@@ -1,4 +1,11 @@
-Run at Deep note startup:
+Terminal Commands:
+
+If you need to re-pull data from .xlsx file run these in Terminal
 
 pip install xlrd
 pip install openpyxl
+
+For graphviz:
+
+sudo apt-get update
+sudo apt-get install graphviz graphviz-dev

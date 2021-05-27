@@ -142,6 +142,7 @@ def wrangle_data(cached=False):
 
         # drop alleged_threat_lvl 'undetermined' 'none'
         df = df[(df.alleged_threat_lvl != 'undetermined') & (df.alleged_threat_lvl != 'none')]
+        df = df[df.alleged_threat_lvl.isnull() != True]
         df.alleged_threat_lvl = np.where(df.alleged_threat_lvl == "attack", 1, 0)
 
         # making fleeing - not fleeing dummy variables
