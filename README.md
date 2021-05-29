@@ -19,17 +19,12 @@ Across the United States, there are altercations that result in killings by poli
 
 For our capstone, we are addressing the issue of police violence that has become a heated topic throughout the country in the recent years. As a team, we will be attempting to help law enforcement agencies spot risk factors so they may step in before risk transforms into actual harm.  
 
-The open-sourced dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9000 police killings from January 2013 to May 2021. Top drivers of civilian fatalities identified will shed light on changes to be made to save more lives. Then, we will use the features to apply to our classification models predicting the threat level of the victim (attacker or not).
+The dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9,000 police killings from January 2013 to May 2021. Top drivers of civilian fatalities identified will shed light on changes to be made to save more lives. After creating a classification model to predict the threat level of the vicitim, we've cast a larger net and acquired the 30,000+ [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/) dataset that was originally used to create the Mapping Police Violence datatset used in the first iteration. The final classification model we have created beat the baseline model by 20%.
 
 
 <a name="project-planning"></a><h1><img src="https://i.pinimg.com/originals/db/f8/d9/dbf8d911ea72d584177fac7b20735afc.png"/></h1>
 ### Goal: 
 Identify top drivers of civilian fatalities in police altercations in the United States in order to shed light on changes to be made to save more lives. Dataset features will be used to build a classification model predicting whether the victim was indeed an attacker.
-
-### Objectives for this project include:
-- Identifying the drivers of civilian fatalities. 
-- Documenting the process and analysis throughout the data science pipeline.
-- Constructing a classification model that can predict what the victim's threat level is, given the features of the dataset.
 
 
 ### Initial Hypotheses:
@@ -41,7 +36,8 @@ Identify top drivers of civilian fatalities in police altercations in the United
 > Hypothesis₂
 >
 > There is a difference between male and female fatalities.
-    
+<details>
+  <summary>Click to see full list. </summary>    
 > Hypothesis₃
 >
 > There is a difference between mental health factor fatalities and non-mental health fatalities.
@@ -57,10 +53,12 @@ Identify top drivers of civilian fatalities in police altercations in the United
 > Hypothesis₆
 >
 > More killings occur in urban vs rural areas.
-    
+</details>    
 
 
-### Initial Hypotheses:
+
+### Project Planning Initial Thoughts:
+**Initial Questions:**
 - How many fatalities happened as a result of an attack by the civilian? (alleged threat level)
 - What are the fatalities by state: % killings vs pop
 - Is race a factor?
@@ -69,17 +67,22 @@ Identify top drivers of civilian fatalities in police altercations in the United
 - What is happening in suburban fatalities?
 - Do symptoms of mental illness play a role in threat level?
 
-
-### Project Planning Initial Thoughts:
 **First iteration:**
-. 
+- Clean datatset
+- Explore questions & hypotheses visually 
+- Encode attributes for ML ease
+- Run statistical test on hypothese
+- Fill in as many blank/ambiguous observations of our target variable `alleged_threat_lvl`
+- Use feature importance to narrow down list of features to feed into our ML model
+- Use various classification models on split data to create the best model
 
 **Second iteration:**
-. 
-
-- New features:
-    - Encode features using `Multilabelbinarizer()`
-    
+- Bring in more data via [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/)!
+- RE-clean
+- Analyze lesser features available 
+    - use feature importance to identify useful attributes
+- Create a better model, we have the technology!
+   
     
 **Deliverables:**
 - A well-documented jupyter notebook detailing the data science pipeline process.
