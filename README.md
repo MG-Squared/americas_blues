@@ -97,10 +97,30 @@ Identify top drivers of civilian fatalities in police altercations in the United
 
 ## Exploration Key Findings:
 ### Univariate
-- 
+- Most fatalities are male
+- Mode of **dataset**:
+    - Race is white
+    - Symptoms of mental illness: No
+    - Were allegedly armed
+    - Had attempted to attack the police or others
+    - Did not have survelliance footage 
+    - Occurred with an **Off-Duty** officer
+
 
 ### Bivariate
-- 
+- Male fatalities were 68% likely to be an attacker
+    - only 20% of men had known mental illness
+- Female fatalities were 59% likely to be an attacker
+    - only 27% of women had known mental illness
+- There is not much variation in the attack threat level and non-attack threat level among the mental illness categories.
+    - Highest percentage of non-attacks are people under the influence of drugs/alcohol.
+- The highest occurrence of attacks are seen in White races. Second highest appears to be Black races.
+    - The highest occurrence of non-attacks are seen in Native Americans. Second highest is Hispanics.
+- There seems to be more attacks than non-attacks overall, regardless if body camera is on or off.
+    - When bodycam is on, there is a higher chance of a non-attack threat level, than when the body camera is off.
+    - In contrast, when the body camera is off, there is a higher chance of an attack threat level, than when the body camera is on.
+    
+
 ### Multivariate
 - 
 
@@ -114,25 +134,40 @@ Identify top drivers of civilian fatalities in police altercations in the United
 
 > #### Hypothesis₁
 >
-> H₀ = 
+> H₀ = There is not a difference between male attackers and the remaining population.
 >
-> H𝛼 = 
-> - **We reject the null hypothesis: Breed and adoption rates are INDEPENDENT.**<br>
-    **Therefore: There is a relationship between breed and if they get adopted.**
+> H𝛼 = Attacker status for males & total population are different.
+> - **We reject the null hypothesis: There is not a difference between male attackers and the remaining population.**<br>
+    **Therefore, we can move forward with alternative hypothesis: Attacker status for males & total population are different.**
 
 <details>
   <summary>Click to see full list. </summary>
     
 > #### Hypothesis₂
 >
-> H₀ = 
+> H₀ = Mental status is independent on alleged threat level.
 >
-> H𝛼 = 
-> - **.**<br>
-    **Therefore: .**
+> H𝛼 = Mental status is dependent on alleged threat level.
+> - **We reject the null hypothesis: Mental status is independent on alleged threat level.**<br>
+    **Therefore: Mental status is dependent on alleged threat level.**
     
-          
+> #### Hypothesis₃
+>
+> H₀ = There is independence between the cause of death and civilian threat level.
+>
+> H𝛼 = There is a dependent relationship between the cause of death and civilian threat level.
+> - **We reject the null hypothesis: There is independence between the cause of death and civilian threat level.**<br>
+    **Therefore: There is a dependent relationship between the cause of death and civilian threat level.**
+           
     
+> #### Hypothesis₄
+>
+> H₀ = There is independence between the use of bodycams and civilian threat level.
+>
+> H𝛼 = There is a dependent relationship between the the use of bodycams and civilian threat level.
+> - **We reject the null hypothesis: There is independence between the use of bodycams and civilian threat level.**<br>
+    **Therefore: There is a dependent relationship between the the use of bodycams and civilian threat level.**
+               
 </details>
 
 
@@ -195,7 +230,11 @@ Identify top drivers of civilian fatalities in police altercations in the United
 In order to get started reproducing this project, you'll need to setup a proper environment.
 
 1. Begin by downloading the Map Police Violence's data [here](https://mappingpoliceviolence.org/).
-![mpvbanner](https://i.pinimg.com/originals/42/40/be/4240beaece83903f4f568f73a46723d8.png)    
+![mpvbanner](https://i.pinimg.com/originals/42/40/be/4240beaece83903f4f568f73a46723d8.png)
+
+As well as our second dataset from [Fatal Encounters](https://fatalencounters.org)
+
+![FEbanner](https://i.pinimg.com/originals/3a/31/e0/3a31e035a9f1b01a2b05169e3a266e4f.png)
 
 2. Recover your downloaded file.
 
