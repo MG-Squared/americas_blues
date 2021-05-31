@@ -215,20 +215,23 @@ def wrangle_new_data(cached=False):
     '''
     Description:
     -----------
-    This function acquires and preps the Mapping Police Violence dataset
+    This function acquires and preps the Fatal encounters dataset
     for exploration and modeling, by performing the following tasks:
     - defaults cached setting from input to False to run prep
     - reads in original .xlsx dataset and 
     - drops unnamed columns
-    - renames columns
-    - specifies columns not needed/to be dropped
-    - lowers string values in columns
-    - fills in nulls in columns (body_camera, known_past_shootings_of_Officer_draft, fleeing)
-    - groups variation of values in columns (encounter_type_draft, cause_of_death, initial_reported_reason_for_encounter_draft, mental_illness, gender, race, geography)
-    - creates dummy variables for columns (mental_illness, encounter_type_draft, gender, fleeing, race, alleged_threat_lvl, armed_unarmed_status, geography, age)
-    - cleans age column (replaces string and unknown values, makes col numeric, and creates bins)
+    - normalizes column names
+    - drops specified columns
+    - drops any remaining nulls
+    - converts age column to float
+    - lowers/strips object columns
+    - groups values in columns (armed_unarmed, alleged_weapon, aggressive_physical_movement, fleeing_not_fleeing)
+    - creates dummy variables (race, armed/unarmed, alleged_weapon, age)
+    - replaces/renames values in race column
+    - creates age bins
+    - renames target variable to alleged_threat_lvl
     - saves doc as csv for ease of use 
-    - and returns wrangled dataframe
+    - and returns new wrangled dataframe
 
     Parameters:
     ----------
@@ -236,31 +239,32 @@ def wrangle_new_data(cached=False):
         Default = False, True pulls from cached csv file if wrangle data has been run before.
     '''
     if cached == False:
-
+        
+        # read in .xlsx dataset
         df = pd.read_excel('new_data.xlsx')
 
-        
+        # drop unnamed columns
         df = df.drop(columns=list(df.columns)[32:])
 
-
+        # normalize column names
         df.columns = df.columns.str.lower().str.replace(' ', '_').str.replace('/',"_").str.replace('(','').str.replace(')','')
 
-
+        # specify columns to drop
         dropcols=['url_of_image_pls_no_hotlinks', 'uid_temporary', 'name_temporary', 'description_temp', 'url_temp', \
         'supporting_document_link', 'dispositions_exclusions_internal_use,_not_for_analysis', 'foreknowledge_of_mental_illness?_internal_use,_not_for_analysis', \
         'race_with_imputations', 'name', 'imputation_probability', 'location_of_injury_address', 'location_of_death_city', 'state', 'location_of_death_county', \
         'full_address', 'latitude', 'longitude']
         
+        # drop specified columns
         df.drop(columns=dropcols, inplace=True)
         
-        
-
+        # drop remaining nulls
         df.dropna(inplace=True)
 
-
+        # convert age column to float
         df.age = df.age.astype('float64')
         
-        
+        # lower/strip object columns
         columns = list(df.columns)
         obj_cols = []
 
@@ -271,10 +275,11 @@ def wrangle_new_data(cached=False):
         for col in obj_cols:
             df[col] = df[col].str.lower().str.strip()
             
-        
+        # group values in armed_unarmed col
         df = df[(df.armed_unarmed == 'armed') | (df.armed_unarmed == 'unarmed') | (df.armed_unarmed == 'uncertain') | (df.armed_unarmed == 'none')]
         df.armed_unarmed = df.armed_unarmed.str.replace('uncertain', 'none').str.replace('none', 'unarmed')
-
+        
+        # group values in alleged_weapon col
         df.alleged_weapon = np.where(df.alleged_weapon.str.contains('firearm'), "firearm", df.alleged_weapon)
         df.alleged_weapon = np.where(df.alleged_weapon.str.contains('blunt object'), "blunt object", df.alleged_weapon)
         df.alleged_weapon = np.where(df.alleged_weapon.str.contains('edged weapon'), "edged weapon", df.alleged_weapon)
@@ -286,7 +291,7 @@ def wrangle_new_data(cached=False):
         df.alleged_weapon = np.where(df.alleged_weapon.str.contains('stun gun'), "other_weapon", df.alleged_weapon)
         df.alleged_weapon = np.where(df.alleged_weapon.str.contains('none'), "no_weapon", df.alleged_weapon)
 
-
+        # group values in aggressive_physical_movement(target var) col
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('vehicular assault'), "ambiguous_threat", df.aggressive_physical_movement)
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('none'), "no_threat", df.aggressive_physical_movement)
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('weapon'), "threat", df.aggressive_physical_movement)
@@ -298,17 +303,24 @@ def wrangle_new_data(cached=False):
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('reached to waist'), "ambiguous_threat", df.aggressive_physical_movement)
         df.aggressive_physical_movement = np.where(df.aggressive_physical_movement.str.contains('sudden threatening movement'), "ambiguous_threat", df.aggressive_physical_movement)
 
+        # dummy var for gender
         gender_dummies = pd.get_dummies(df.gender, prefix='is')
         gender_dummies.drop(columns='is_male', inplace=True)
 
+        # replace/rename values in race col
         df.race = df.race.str.replace("african-american/black", "black").replace("european-american/white", "white").replace("hispanic/latino", "hispanic").replace("native american/alaskan", "native_american").replace("race unspecified", "unknown_race")
+        
+        # dummy var for race
         race_dummies = pd.get_dummies(df.race, prefix='is')
         race_dummies.columns = race_dummies.columns.str.replace('/', '_')
 
+        # dummy var for armed/unarmed
         unarmed_dummies = pd.get_dummies(df.armed_unarmed, drop_first=True, prefix='is')
-
+        
+        # dummy var for alleged_weapon
         weapon_dummies = pd.get_dummies(df.alleged_weapon, prefix='had', drop_first=False)
-
+        
+        # group values in fleeing_not_fleeing col
         df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("fleeing/"), "fleeing", df.fleeing_not_fleeing)
         df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("vehicle"), "fleeing", df.fleeing_not_fleeing)
         df['fleeing_not_fleeing'] = np.where(df.fleeing_not_fleeing.str.contains("foot"), "fleeing", df.fleeing_not_fleeing)
@@ -329,12 +341,14 @@ def wrangle_new_data(cached=False):
         
         # concat age_dummies
         df = pd.concat([df, race_dummies, unarmed_dummies, weapon_dummies, age_dummies], axis=1)
-
+        
+        #drop remaining nulls
         df.dropna(inplace=True)
-
+        
+        #rename target variable
         df.rename(columns={'aggressive_physical_movement' : 'alleged_threat_lvl'}, inplace=True)
         
-
+        #save to csv
         df.to_csv('prepped_new_data.csv')
 
     elif cached == True:
@@ -344,5 +358,6 @@ def wrangle_new_data(cached=False):
 
 
     return df
+
 
 
