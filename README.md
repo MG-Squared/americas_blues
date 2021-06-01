@@ -274,11 +274,15 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 
 <details>
   <summary>Click to see full list. 
+      
    </summary>
-    <h2>Fatal Encounters Data Dictionary</h2>
+
+    
+    Data Dictionary of Fatal Encounters Data Set
+
  
-| column_name  | description | key| dtype  |
-    |------------|-----------------------------------------------------------------------|------------------------------|--------|
+| column_name                      | description                        | key              | dtype |
+|----------------------------------|------------------------------------|------------------|-------|
 | age | Age of victim in years.   |  |int64 |   
 | age bins | This category consists of the following bins: under 12, 12-17, 18-24, 25-34, 35-44, 45-54, 55-64, 65+ | |float64|
 | agency_or_agencies_involved |  Identifies the agency represented at the incident (police department, sheriff's office, marshall's office, etc.).    |     | object  |
@@ -294,11 +298,6 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 | location_of_death_zipcode | Zip code where incident occurred.  |  | float64 |
 | race|  Race of victim: white, black, hispanic, unknown race, asian/pacific islander, native_american, middle eastern. Further broken down into dummy variables: is_asian/pacific islander, is_white, is_black, is_hispanic, is_middle_eastern, is_native american, or is_unknown race.| 0 = No, 1 = Yes uint8 | object |
 | unique_id | Encounter identification number assigned by Fatal Encounters data set | | float64|
-    
-    
-    
-    
-    
 </details>
 
 [Jump to Navigation](#navigation)
