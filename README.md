@@ -253,38 +253,52 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 | zipcode | Zip code where incident occurred.  |  | float64 |
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <details>
   <summary>Click to see full list. 
    </summary>
     <h2>Fatal Encounters Data Dictionary</h2>
-| column_name  | description                                                           | key                          | dtype  |
-|-------------|-----------------------------------------------------------------------|------------------------------|--------|
-| age | Age of victim in years.  |  | object |
-| gender | Gender of victim: male, female or transgender. |    | object |
-| race|  Race of victim: white, black, hispanic, asian, native american, or unknown. |   | object |
-| date  | Date of incident. |                        | datetime  |
-| city | City where incident occurred.|      | object  |
-| state |  State where incident occurred.    |    | float |
-| zipcode | Zip code where incident occurred.  |  | object |
-| county| County where incident occurred.                           |                              | object |
-| agency_responsible  |  Identifies the agency represented at the incident (police department, sheriff's office, marshall's office, etc.).    |     | object  |
-| cause_of_death | Victim's cause of death: (gunshot, taser, vehicle, physical restraint, beaten, baton, bomb, police dog, asphyxiation, pepper spray, chemical agent, other).         |                              | object  |
-| description_of_circumstances |Brief description of the incident's offense and outcome.  | | object |
-| official_disposition  |Indicates the status of charges, if they were filed against the officer.| | object |
-| criminal_charges_filed|Indicates whether or not charges were filed against the officer for the killing.   | | object |
-| mental_illness   |Indicates whether the victim was identified as having a mental illness. |                              | object  |
-| armed_unarmed|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit.   | | object |
-| alleged_weapon |Alleged weapon of the victim. |         | object |
-| alleged_threat_lvl | Indicates whether or not the officer was allegedly attacked by the victim.  |  0: No Attack / 1: Alleged Attack on Officer | object |
-| fleeing      | Indicates whether or not the victim was fleeing (on foot, by car or other vehicle) at the time of the incident. Further broken down into was_fleeing, was_not_fleeing |   | object |
-| body_camera|Indicates whether or not police body camera footage of the event is available. |    0: No Body Cam / 1: Body Cam                          | object |
-| geography  | The location of the incident is classified as either: suburban, urban, rural, undetermined. |                              | object |
-| encounter_type| Classifies each incidence as: violent crime, person with a weapon, domestic disturbance, traffic stop, mental health/welfare check, other non-violent offense, other crimes again people, or unknown.     || object |
-| initial_reported_reason_for_encounter| Reason for initial encounter with police.                   |                              | object |
-|race_of_officers_involved  | Indicates race of the officer involved.   |                              | object |
-| known_past_shootings_of_Officer | Indicates whether the officer involved has been involved in past shootings.             |                              | object  |
-| call_for_service |Indicates whether or not police were responding to a call for service regarding the incidence. ||object|
-        
+ 
+| column_name  | description | key| dtype  |
+    |------------|-----------------------------------------------------------------------|------------------------------|--------|
+| age | Age of victim in years.   |  |int64 |   
+| age bins | This category consists of the following bins: under 12, 12-17, 18-24, 25-34, 35-44, 45-54, 55-64, 65+ | |float64|
+| agency_or_agencies_involved |  Identifies the agency represented at the incident (police department, sheriff's office, marshall's office, etc.).    |     | object  |
+| alleged_threat_lvl | Indicates type of threat alleged: threat, no threat, ambiguous threat  |  | object |
+| alleged_weapon |Alleged weapon of the victim. This is further broken down into dummy variables: is_unarmed, had_blunt object, had_edged weapon, had_firearm, had_no_weapon, had_other_weapon |  0 = No / 1 = Yes (uint8)       | object |
+| armed_unarmed|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit. |  (float64)| object |
+| brief_description |Brief description of the incident's circumstances, offense and outcome.  | | object |
+| date_of_injury_resulting_in_death  | Date of incident. |                        | datetime64[ns]  |
+|fleeing | Indicates whether the victim was fleeing at the time of injury causing death | 0 = No / 1 = Yes | float64|
+|fleeing_not_fleeing | Indicates whether or not victim was fleeing at the time of injury causing death | | object |
+| gender | Gender of victim: male,female or transgender. | | object |
+|intended_use_of_force_developing | deadly force, suicide, vehicle/pursuit, pursuit, less than lethal force, no force, vehicle,or undetermined | | object |
+| location_of_death_zipcode | Zip code where incident occurred.  |  | float64 |
+| race|  Race of victim: white, black, hispanic, unknown race, asian/pacific islander, native_american, middle eastern. Further broken down into dummy variables: is_asian/pacific islander, is_white, is_black, is_hispanic, is_middle_eastern, is_native american, or is_unknown race.| 0 = No, 1 = Yes uint8 | object |
+| unique_id | Encounter identification number assigned by Fatal Encounters data set | | float64|
+    
+    
+    
+    
+    
 </details>
 
 [Jump to Navigation](#navigation)
