@@ -24,6 +24,9 @@
 ![](https://img.shields.io/static/v1?message=Python&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
 ![](https://img.shields.io/static/v1?message=Pandas&logo=pandas&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
 ![](https://img.shields.io/static/v1?message=SciKit-Learn&logo=scikit-learn&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=SciPy&logo=scipy&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Yellowbrick&logo=scikit-learn&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=NLTK&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
 ![](https://img.shields.io/static/v1?message=NumPy&logo=numpy&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
 ![](https://img.shields.io/static/v1?message=MatPlotLib&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
 ![](https://img.shields.io/static/v1?message=Seaborn&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
@@ -57,12 +60,12 @@ Across the United States, there are altercations that result in killings by poli
 
 For our capstone, we are addressing the issue of police violence that has become a heated topic throughout the country in the recent years. As a team, we will be attempting to help law enforcement agencies spot risk factors so they may step in before risk transforms into actual harm.  
 
-The dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9,000 police killings from January 2013 to May 2021. Top drivers of civilian fatalities identified will shed light on changes to be made to save more lives. After creating a classification model to predict the threat level of the victim, we've cast a larger net and acquired the 30,000+ [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/) dataset that was originally used to create the Mapping Police Violence dataset used in the first iteration. The final classification model we have created beat the baseline model by 20%.
+The dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9,000 police killings from January 2013 to May 2021. Analyzing the features surrounding fatal encounters will shed light on changes to be made to save more lives. After creating a classification model to predict the threat level of the victim, we've cast a larger net and acquired the 30,000+ [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/) dataset that was originally used to create the Mapping Police Violence dataset used in the first iteration. The final classification model we have created beat the baseline model by 20%.
 
 
 <a name="project-planning"></a><h1><img src="https://i.pinimg.com/originals/db/f8/d9/dbf8d911ea72d584177fac7b20735afc.png"/></h1>
 ### Goal: 
-Identify top drivers of civilian fatalities in police altercations in the United States in order to shed light on changes to be made to save more lives. Dataset features will be used to build a classification model predicting whether the victim was indeed an attacker.
+Analyze attributes of civilian fatalities in police altercations in the United States in order to shed light on changes to be made to save more lives. Dataset features will be used to build a classification model predicting whether the victim was indeed an attacker.
 
 
 ### Initial Hypotheses:
@@ -224,6 +227,38 @@ Identify top drivers of civilian fatalities in police altercations in the United
 
 | column_name  | description                                                           | key                          | dtype  |
 |-------------|-----------------------------------------------------------------------|------------------------------|--------|
+| age | Age of victim in years.   |  |int64 |
+| age bins | This category consists of the following bins: age unknown, under 12, 12-17, 18-24, 25-34, 35-44, 45-54, 55-64, 65+ | |uint8|
+| agency_responsible  |  Identifies the agency represented at the incident (police department, sheriff's office, marshall's office, etc.).    |     | object  |
+| alleged_threat_lvl | Indicates whether or not the officer was allegedly attacked by the victim.  | 0 = No, 1 = Yes  | float64 |
+| alleged_weapon |Alleged weapon of the victim. |         | object |
+| armed_unarmed_status|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit. This category is further broken down using dummy variables in the categories of was_allegedly_armed, was_unarmed, was_vehicle| 0 = No, 1 = Yes (float64)| object |
+| body_camera|Indicates whether or not police body camera footage of the event is available. |    0: No Body Cam / 1: Body Cam | float64 |
+| cause_of_death | Victim's cause of death: (gunshot, taser, vehicle, physical restraint, beaten, baton, bomb, police dog, asphyxiation, pepper spray, chemical agent, other).  | | object  |
+| city | City where incident occurred.|      | object  |
+| county| County where incident occurred. | | object |
+| criminal_charges_filed|Indicates whether or not charges were filed against the officer for the killing.   | | object |
+| date  | Date of incident. |                        | datetime64[ns]  |
+| description_of_circumstances |Brief description of the incident's offense and outcome.  | | object |
+| encounter_type_draft| Classifies each incidence as: violent crime, person with a weapon, domestic disturbance, traffic stop, mental health/welfare check, other non-violent offense, other crimes again people, or unknown. This is further broken down into dummy variables: was_domestic_disturbance, was_mental_health_walfare_check, was_person_with_a_weapon, was_traffic_stop, was_violent_crime_part_1    |0 = No, 1 = Yes (uint8) | object |
+| fleeing      | Indicates whether or not the victim was fleeing (on foot, by car or other vehicle) at the time of the incident. Further broken down into was_fleeing, was_not_fleeing | 0 = No / 1 = Yes (float64) | object |
+| gender | Gender of victim: is_male, is_female or is_transgender. | 0 = No, 1 = Yes (uint8)   | object |
+| geography  | The location of the incident is classified as either: suburban, urban, rural. These were further broken down into dummy variables: rural, suburban,and urban. |   0 = No, 1 = Yes (float)                            | object |
+| initial_reported_reason_for_encounter_draft| Reason for initial encounter with police.                   |                              | object |
+| known_past_shootings_of_officer_draft | Indicates whether the officer involved has been involved in past shootings.             |    | object  |
+| mental_illness   |Indicates whether the victim was identified as having a mental illness. Broken down into the following categories: mntlill_drug or alcohol use (reported that victim had symptoms of drug or alcohol use), mntlill_no (reported that victim had no symptoms of mental illness ), mntlill_unknown (unknown whether victim had symptoms of mental illness), mntlill_yes (reported that victim had symptoms of mental illness)| 0 = No, 1 = Yes (uint8) | object  |
+| official_disposition  |Indicates the status of charges, if they were filed against the officer.| | object |
+| race|  Race of victim: is_white, is_black, is_hispanic, is_asian/pacific islander, is_native american, or is_unknown race. |  0 = No, 1 = Yes (uint8) | object |
+| state |  State where incident occurred.    |    |object |
+| zipcode | Zip code where incident occurred.  |  | float64 |
+
+
+<details>
+  <summary>Click to see full list. 
+   </summary>
+    <h2>Fatal Encounters Data Dictionary</h2>
+| column_name  | description                                                           | key                          | dtype  |
+|-------------|-----------------------------------------------------------------------|------------------------------|--------|
 | age | Age of victim in years.  |  | object |
 | gender | Gender of victim: male, female or transgender. |    | object |
 | race|  Race of victim: white, black, hispanic, asian, native american, or unknown. |   | object |
@@ -238,10 +273,10 @@ Identify top drivers of civilian fatalities in police altercations in the United
 | official_disposition  |Indicates the status of charges, if they were filed against the officer.| | object |
 | criminal_charges_filed|Indicates whether or not charges were filed against the officer for the killing.   | | object |
 | mental_illness   |Indicates whether the victim was identified as having a mental illness. |                              | object  |
-| armed_unarmed|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit. | | object |
+| armed_unarmed|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit.   | | object |
 | alleged_weapon |Alleged weapon of the victim. |         | object |
 | alleged_threat_lvl | Indicates whether or not the officer was allegedly attacked by the victim.  |  0: No Attack / 1: Alleged Attack on Officer | object |
-| fleeing      | Indicates whether or not the victim was fleeing (on foot, by car or other vehicle) at the time of the incident.  | 0 = Not Fleeing / 1 = Fleeing  | object |
+| fleeing      | Indicates whether or not the victim was fleeing (on foot, by car or other vehicle) at the time of the incident. Further broken down into was_fleeing, was_not_fleeing |   | object |
 | body_camera|Indicates whether or not police body camera footage of the event is available. |    0: No Body Cam / 1: Body Cam                          | object |
 | geography  | The location of the incident is classified as either: suburban, urban, rural, undetermined. |                              | object |
 | encounter_type| Classifies each incidence as: violent crime, person with a weapon, domestic disturbance, traffic stop, mental health/welfare check, other non-violent offense, other crimes again people, or unknown.     || object |
@@ -249,10 +284,6 @@ Identify top drivers of civilian fatalities in police altercations in the United
 |race_of_officers_involved  | Indicates race of the officer involved.   |                              | object |
 | known_past_shootings_of_Officer | Indicates whether the officer involved has been involved in past shootings.             |                              | object  |
 | call_for_service |Indicates whether or not police were responding to a call for service regarding the incidence. ||object|
-
-<details>
-  <summary>Click to see full list. </summary>
-
         
 </details>
 
