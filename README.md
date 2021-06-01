@@ -1,4 +1,42 @@
 ![aacbanner](https://i.pinimg.com/originals/72/f6/df/72f6dfa7856f808ba6ff9a2074c4cfa0.gif)
+<p>
+  <a href="https://github.com/aliciag92" target="_blank">
+    <img alt="Alicia" src="https://img.shields.io/github/followers/aliciag92?label=Follow_Alicia&style=social" />
+  </a> 
+  <a href="https://github.com/o0amandagomez0o" target="_blank">
+    <img alt="Amanda" src="https://img.shields.io/github/followers/o0amandagomez0o?label=Follow_Amanda&style=social" />
+  </a>
+    <a href="https://github.com/barbmarques" target="_blank">
+    <img alt="Barbara" src="https://img.shields.io/github/followers/barbmarques?label=Follow_Barbara&style=social" />
+  </a>
+      <a href="https://github.com/mdalton87" target="_blank">
+    <img alt="Matthew" src="https://img.shields.io/github/followers/mdalton87?label=Follow_Matt&style=social" />
+  </a>
+    <a href="https://github.com/MG-Squared" target="_blank">
+    <img alt="Matthew" src="https://img.shields.io/github/followers/MG-Squared?label=Follow_MG-Squared&style=social" />
+  </a>
+
+
+</p>
+
+**Tools & Technologies Used:** 
+
+![](https://img.shields.io/static/v1?message=Python&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Pandas&logo=pandas&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=SciKit-Learn&logo=scikit-learn&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=NumPy&logo=numpy&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=MatPlotLib&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Seaborn&logo=python&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Tableau&logo=tableau&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Canva&logo=canva&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Markdown&logo=markdown&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=GitHub&logo=github&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=JupyterLab&logo=jupyter&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=DeepNote&logo=deepnote&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+![](https://img.shields.io/static/v1?message=Trello&logo=trello&labelColor=5c5c5c&color=2f5f98&logoColor=white&label=%20)
+
+
+
 
 ___
 
@@ -19,7 +57,7 @@ Across the United States, there are altercations that result in killings by poli
 
 For our capstone, we are addressing the issue of police violence that has become a heated topic throughout the country in the recent years. As a team, we will be attempting to help law enforcement agencies spot risk factors so they may step in before risk transforms into actual harm.  
 
-The dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9,000 police killings from January 2013 to May 2021. Top drivers of civilian fatalities identified will shed light on changes to be made to save more lives. After creating a classification model to predict the threat level of the vicitim, we've cast a larger net and acquired the 30,000+ [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/) dataset that was originally used to create the Mapping Police Violence datatset used in the first iteration. The final classification model we have created beat the baseline model by 20%.
+The dataset we acquired from [Mapping Police Violence](https://mappingpoliceviolence.org/aboutthedata) has gathered over 9,000 police killings from January 2013 to May 2021. Top drivers of civilian fatalities identified will shed light on changes to be made to save more lives. After creating a classification model to predict the threat level of the victim, we've cast a larger net and acquired the 30,000+ [Fatal Encounters](https://fatalencounters.org/tools-for-journalists/) dataset that was originally used to create the Mapping Police Violence dataset used in the first iteration. The final classification model we have created beat the baseline model by 20%.
 
 
 <a name="project-planning"></a><h1><img src="https://i.pinimg.com/originals/db/f8/d9/dbf8d911ea72d584177fac7b20735afc.png"/></h1>
@@ -46,7 +84,7 @@ Identify top drivers of civilian fatalities in police altercations in the United
 >
 > The cause of death and civilian fleeing are independent.
     
-> Hypothesis₅
+> Hypothesis0
 >
 > Race is a factor.
     
@@ -148,7 +186,7 @@ Identify top drivers of civilian fatalities in police altercations in the United
 > H₀ = Mental status is independent on alleged threat level.
 >
 > H𝛼 = Mental status is dependent on alleged threat level.
-> - **We reject the null hypothesis: Mental status is independent on alleged threat level.**<br>
+> - **We reject the null hypothesis: Mental status is independent of alleged threat level.**<br>
     **Therefore: Mental status is dependent on alleged threat level.**
     
 > #### Hypothesis₃
@@ -187,8 +225,8 @@ Identify top drivers of civilian fatalities in police altercations in the United
 | column_name  | description                                                           | key                          | dtype  |
 |-------------|-----------------------------------------------------------------------|------------------------------|--------|
 | age | Age of victim in years.  |  | object |
-| gender | Gender of victim. |    | object |
-| race|  Race of victim. |   | object |
+| gender | Gender of victim: male, female or transgender. |    | object |
+| race|  Race of victim: white, black, hispanic, asian, native american, or unknown. |   | object |
 | date  | Date of incident. |                        | datetime  |
 | city | City where incident occurred.|      | object  |
 | state |  State where incident occurred.    |    | float |
@@ -200,11 +238,11 @@ Identify top drivers of civilian fatalities in police altercations in the United
 | official_disposition  |Indicates the status of charges, if they were filed against the officer.| | object |
 | criminal_charges_filed|Indicates whether or not charges were filed against the officer for the killing.   | | object |
 | mental_illness   |Indicates whether the victim was identified as having a mental illness. |                              | object  |
-| armed_unarmed_status |A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit. | | object |
+| armed_unarmed|A person was coded as 'unarmed' if there were not holding any objects or weapons when killed, if they were holding personal items that were not used to attack others (ex: cellphone, cane, etc.), if they were holding a toy weapon (ex. BB gun, pellet gun, air rifle, toy sword), if they were an innocent bystander or hostage, or a person or motorist killed after being intentionally hit by a police car or as a result of hitting police stop sticks during a pursuit. | | object |
 | alleged_weapon |Alleged weapon of the victim. |         | object |
-| alleged_threat_lvl | Indicates whether or not the officer was allegedly attacked by the victim.  |   | object |
-| fleeing      | Indicates whether or not the victim was fleeing at the time of the incident.  |   | object |
-| body_camera|Indicates whether or not police body camera footage of the event is available. |                              | object |
+| alleged_threat_lvl | Indicates whether or not the officer was allegedly attacked by the victim.  |  0: No Attack / 1: Alleged Attack on Officer | object |
+| fleeing      | Indicates whether or not the victim was fleeing (on foot, by car or other vehicle) at the time of the incident.  | 0 = Not Fleeing / 1 = Fleeing  | object |
+| body_camera|Indicates whether or not police body camera footage of the event is available. |    0: No Body Cam / 1: Body Cam                          | object |
 | geography  | The location of the incident is classified as either: suburban, urban, rural, undetermined. |                              | object |
 | encounter_type| Classifies each incidence as: violent crime, person with a weapon, domestic disturbance, traffic stop, mental health/welfare check, other non-violent offense, other crimes again people, or unknown.     || object |
 | initial_reported_reason_for_encounter| Reason for initial encounter with police.                   |                              | object |
@@ -214,11 +252,6 @@ Identify top drivers of civilian fatalities in police altercations in the United
 
 <details>
   <summary>Click to see full list. </summary>
-
-| column_name                      | description                        | key              | dtype |
-|----------------------------------|------------------------------------|------------------|-------|
-| `American Pit Bull Terrier Mix` | Indicates if animal is this breed. | 1 = yes, 0 = no  | int64 |
-| `American Shorthair Mix`        | Indicates if animal is this breed. | 1 = yes, 0 = no  | int64 |
 
         
 </details>
