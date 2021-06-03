@@ -162,8 +162,7 @@ Analyze attributes of civilian fatalities in police altercations in the United S
     - In contrast, when the body camera is off, there is a higher chance of an attack threat level, than when the body camera is on.
     
 
-### Multivariate
-- 
+
 
 
 
@@ -217,7 +216,21 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 
 <a name="take-aways"></a><h1><img src="https://i.pinimg.com/originals/66/e9/a5/66e9a50ef4fb3bed4bf122d18a56d56b.png"/></h1>
 
-- 
+
+- All models had roughly the same score for train and validate sets.
+- K-Nearest neighbor model performed the worst on out-of-sample data.
+- The best performing model uses a Random Forest algorithm and combined features from Select K Best and Recursive Feature Elimination lists.
+- Our final Random Forest model increased by 21% from a baseline accuracy of 51% to 72% accuracy on out-of-sample data.
+** Next Steps
+- Fill in missing values manually as best as possible based on the description column in the dataset (large amount of data missing).
+- Natural language processing exploration on description of incident.
+
+- Most impactful features of predicting alleged threat level:
+    - Armed vs. Unarmed
+    - Fleeing Attempt
+    - Age
+    - Race
+
 
 
 
