@@ -78,7 +78,8 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 >
 > There is a difference between male and female fatalities.
 <details>
-  <summary>Click to see full list. </summary>    
+  <summary>Click to see full list. </summary>   
+    
 > Hypothesis₃
 >
 > There is a difference between mental health factor fatalities and non-mental health fatalities.
@@ -87,13 +88,14 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 >
 > The cause of death and civilian fleeing are independent.
     
-> Hypothesis0
+> Hypothesis₅
 >
 > Race is a factor.
     
 > Hypothesis₆
 >
 > More killings occur in urban vs rural areas.
+   
 </details>    
 
 
@@ -103,10 +105,18 @@ Analyze attributes of civilian fatalities in police altercations in the United S
 - How many fatalities happened as a result of an attack by the civilian? (alleged threat level)
 - What are the fatalities by state: % killings vs pop
 - Is race a factor?
-- Does the police officer having a bodycam make a difference?
 - Where and what areas result in more killings?
 - What is happening in suburban fatalities?
 - Do symptoms of mental illness play a role in threat level?
+- Are victims armed/unarmed or fleeing/not fleeing victims? Do these attributes affect alleged threat level? 
+- Did the victim put others in danger?
+- Is there a mental illness that contributed to the incident? 
+- Are officers wearing their body cameras and does it make a difference in alleged threat level?
+- Is race, gender, age or location influencing the threat level of victims?
+- Is there even enough information being documented on the police reports? 
+- How does mental illness affect each gender?
+- Is cause of death and alleged threat level independent of one another?
+- What are the most common words that appear in the description of incidents?
 
 **First iteration:**
 - Clean datatset
